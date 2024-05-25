@@ -1,6 +1,5 @@
-import Alpine from 'alpinejs'
-
+import Alpine from 'alpinejs';
+import './app';
 // @ts-ignore
-window.Alpine = Alpine
- 
-Alpine.start()
+window.Alpine = Alpine;
+Alpine.start();
