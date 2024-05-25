@@ -28,4 +28,5 @@ jobs:
           echo "Short SHA variables"
           echo " - ${{ env.GITHUB_SHA_SHORT }}"
           # output e.g. : ffac537e
-        - run: node prog.js
+      - name: Print slug/short variables
+        run: node prog.js
