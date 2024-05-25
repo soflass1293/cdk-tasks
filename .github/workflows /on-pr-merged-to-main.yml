@@ -18,9 +18,9 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v3
-          with:
-              role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess #change to reflect your IAM role’s ARN
-              role-session-name: GitHub_to_AWS_via_FederatedOIDC
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess #change to reflect your IAM role’s ARN
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
 
 # https://dev.to/slsbytheodo/configure-authentication-to-your-aws-account-in-your-github-actions-ci-13p3
