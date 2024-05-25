@@ -43,8 +43,4 @@ const deleteTodo = (input: DeleteTodoInput) => {
   });
 };
 
-const fooo = () => {
-  alert("diejfij");
-};
-
-export { getTodos, createTodo, toggleTodo, deleteTodo, gql, fooo };
+export { getTodos, createTodo, toggleTodo, deleteTodo, gql };

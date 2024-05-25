@@ -1,9 +1,3 @@
-type Todo = {
-  id: string,
-  name: string,
-  completed: boolean,
-  createdAt?: Date
-}
 document.addEventListener("alpine:init", () => {
   // @ts-ignore
   Alpine.data("todos_form", () => ({
@@ -14,12 +8,8 @@ document.addEventListener("alpine:init", () => {
   }));
   // @ts-ignore
   Alpine.data("todos_list", () => ({
-    todos: [] as Todo[],
-    handleInit(){
-      fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json())
-      .then(json => this.todos=(json))
-    },
+    todos: [],
+    handleInit() {},
     handleToggleCompleted(id: string) {
       console.log("completed", id);
     },
