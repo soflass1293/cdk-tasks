@@ -26,4 +26,4 @@ jobs:
       - name: Build
         run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen build
       - name: Deploy
-        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen deploy
+        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen deploy --all --verbose --require-approval never
