@@ -18,4 +18,4 @@ jobs:
       - name: Print slug/short variables
         run: echo "${{ env.GITHUB_REF_SLUG }}"
       - name: noding
-        run: foooo=barrrrr node prog.js
+        run: GITHUB_REF_SLUG=${{ env.GITHUB_REF_SLUG }} node prog.js
