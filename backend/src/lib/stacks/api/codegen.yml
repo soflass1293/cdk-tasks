@@ -1,0 +1,12 @@
+schema: src/lib/stacks/api/schema/schema.graphql
+generates:
+  "src/lib/stacks/api/types/index.ts":
+    hooks:
+      afterOneFileWrite:
+        - prettier --write
+    plugins:
+      - add:
+          content: "/* eslint-disable */"
+      - "@graphql-codegen/typescript"
+    config:
+      enumsAsTypes: true
