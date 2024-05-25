@@ -12,14 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-      - name: Install dependencies
-        run: npm install
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: us-east-1
       - name: Build
         run: npx projen build
 
