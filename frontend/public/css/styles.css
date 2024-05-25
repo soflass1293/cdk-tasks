@@ -401,3 +401,6 @@ footer {
 .cb-checkbox-wrapper {
   border-radius: 48px;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
