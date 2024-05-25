@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
-      - name: Print slug/short variables
-        run: echo "${{ env.GITHUB_REF_SLUG }}"
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
