@@ -72,7 +72,15 @@
       "type": "build"
     },
     {
+      "name": "@apollo/client",
+      "type": "runtime"
+    },
+    {
       "name": "alpinejs",
+      "type": "runtime"
+    },
+    {
+      "name": "graphql",
       "type": "runtime"
     }
   ],

@@ -116,13 +116,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/alpinejs,@types/jest,@types/web,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,typescript,vite,alpinejs"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/alpinejs,@types/jest,@types/web,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,typescript,vite,@apollo/client,alpinejs,graphql"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/alpinejs @types/jest @types/node @types/web @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest typescript vite alpinejs"
+          "exec": "yarn upgrade @types/alpinejs @types/jest @types/node @types/web @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest typescript vite @apollo/client alpinejs graphql"
         },
         {
           "exec": "npx projen"
