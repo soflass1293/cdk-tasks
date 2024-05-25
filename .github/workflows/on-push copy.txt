@@ -11,6 +11,10 @@ jobs:
   on-push:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
       - name: Print slug/short variables
@@ -28,4 +32,12 @@ jobs:
           echo "Short SHA variables"
           echo " - ${{ env.GITHUB_SHA_SHORT }}"
           # output e.g. : ffac537e
-        - run: node prog.js
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: us-east-1
+      - name: Build
+        run: npx projen build
+

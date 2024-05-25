@@ -1,0 +1,5 @@
+console.log('aaaaaaaaaa')
+console.log(process.env.GITHUB_HEAD_REF_SLUG)
+console.log('cccccccccc')
+console.log(process.env.GITHUB_HEAD_REF_SLUG)
+console.log('bbbbbbbbbbb')
