@@ -1,8 +1,8 @@
-import { AppSyncResolverHandler } from "aws-lambda";
-import { DynamoDBAdapter } from "../../database/adapters";
-import { AppSyncError, isAppSyncError } from "../../database/errors/appsync-error";
-import { GetTodosCommand } from "../../database/commands/get-todos-command";
-import { Query } from "../types";
+import { AppSyncResolverHandler } from 'aws-lambda';
+import { DynamoDBAdapter } from '../../database/adapters';
+import { GetTodosCommand } from '../../database/commands/get-todos-command';
+import { AppSyncError, isAppSyncError } from '../../database/errors/appsync-error';
+import { Query } from '../types';
 
 const getTodosCommand = new GetTodosCommand({
   dynamoDBAdapter: new DynamoDBAdapter({
@@ -11,8 +11,8 @@ const getTodosCommand = new GetTodosCommand({
 });
 
 export const handler: AppSyncResolverHandler<
-  undefined,
-  Query["getTodos"] | AppSyncError | unknown
+undefined,
+Query['getTodos'] | AppSyncError | unknown
 > = async () => {
   try {
     const todos = await getTodosCommand.execute();

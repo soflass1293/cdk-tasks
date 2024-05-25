@@ -1,1 +1,1 @@
-export { TodoRecord } from "./todo-record";
+export { TodoRecord } from './todo-record';

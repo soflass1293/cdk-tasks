@@ -1,11 +1,11 @@
-import { DynamoDBAdapter } from "../../database/adapters";
-import { CreateTodoCommand } from "../../database/commands/create-todo-command";
-import { AppSyncResolverHandler } from "aws-lambda";
+import { AppSyncResolverHandler } from 'aws-lambda';
+import { DynamoDBAdapter } from '../../database/adapters';
+import { CreateTodoCommand } from '../../database/commands/create-todo-command';
 import {
   AppSyncError,
   isAppSyncError,
-} from "../../database/errors/appsync-error";
-import { Mutation, MutationCreateTodoArgs } from "../types";
+} from '../../database/errors/appsync-error';
+import { Mutation, MutationCreateTodoArgs } from '../types';
 
 const createTodoCommand = new CreateTodoCommand({
   dynamoDBAdapter: new DynamoDBAdapter({
@@ -14,8 +14,8 @@ const createTodoCommand = new CreateTodoCommand({
 });
 
 export const handler: AppSyncResolverHandler<
-  MutationCreateTodoArgs,
-  Mutation["createTodo"] | AppSyncError | unknown
+MutationCreateTodoArgs,
+Mutation['createTodo'] | AppSyncError | unknown
 > = async (event) => {
   try {
     const { input } = event.arguments;
