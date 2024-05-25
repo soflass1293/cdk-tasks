@@ -11,6 +11,7 @@ jobs:
   on-push:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
       - name: Print slug/short variables
