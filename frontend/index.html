@@ -59,38 +59,37 @@
         </div>
       </form>
 
-      <ul x-data="todos_list" class="todos" x-init="handleInit">
-        <template x-for="todo in todos">
-          <li class="card">
-            <div class="cb-container" @click="handleToggleCompleted(todo.id)">
-              <template x-if="todo.completed">
-                <div class="cb-checkbox-wrapper">
-                  <div class="cb-checkbox" type="checkbox"></div>
-                  <span class="check"></span>
-                </div>
-              </template>
-              <template x-if="!todo.completed">
-                <div class="cb-checkbox-wrapper">
-                  <div class="cb-input" type="checkbox"></div>
-                </div>
-              </template>
-            </div>
-            <p class="item" x-text="todo.title"></p>
-            <button class="clear" @click="handleDelete(todo.id)">
-              <img src="/images/icon-cross.svg" alt="Clear it" />
-            </button>
-          </li>
-        </template>
-      </ul>
-      <div class="card stat">
-        <p class="corner"><span id="items-left">0</span> items left</p>
-        <div class="filter">
-          <button id="all" class="on">All</button>
-          <button id="active">Active</button>
-          <button id="completed">Completed</button>
-        </div>
-        <div class="corner">
-          <button id="clear-completed">Clear Completed</button>
+      <div x-data="todos_list" x-init="handleInit">
+        <ul class="todos">
+          <template x-for="todo in filteredTodos">
+            <li class="card">
+              <div class="cb-container" @click="handleToggleCompleted(todo.id)">
+                <template x-if="todo.completed">
+                  <div class="cb-checkbox-wrapper">
+                    <div class="cb-checkbox" type="checkbox"></div>
+                    <span class="check"></span>
+                  </div>
+                </template>
+                <template x-if="!todo.completed">
+                  <div class="cb-checkbox-wrapper">
+                    <div class="cb-input" type="checkbox"></div>
+                  </div>
+                </template>
+              </div>
+              <p class="item" x-text="todo.title"></p>
+              <button class="clear" @click="handleDelete(todo.id)">
+                <img src="/images/icon-cross.svg" alt="Clear it" />
+              </button>
+            </li>
+          </template>
+        </ul>
+        <div class="card stat">
+          <p class="corner"><span id="items-left" x-text="filteredTodos.length"></span> todos</p>
+          <div class="filter">
+            <button id="all" :class="{ 'on': filter === 'all' }" @click="handleFilter('all')">All</button>
+            <button id="active" :class="{ 'on': filter === 'active' }" @click="handleFilter('active')">Active</button>
+            <button id="completed" :class="{ 'on': filter === 'completed' }" @click="handleFilter('completed')">Completed</button>
+          </div>
         </div>
       </div>
     </main>
