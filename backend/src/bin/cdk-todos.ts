@@ -18,8 +18,6 @@ new EventsStack(app, "EventsStack", {
   archivedTable,
   stackName: "cdk-tasks-add-backend-events",
 });
-if (false) {
-  new WebsiteStack(app, "WebsiteStack", {
-    stackName: "cdk-tasks-add-backend-website",
-  });
-}
+new WebsiteStack(app, "WebsiteStack", {
+  stackName: "cdk-tasks-add-backend-website",
+});

@@ -43,13 +43,13 @@ export class WebsiteStack extends cdk.Stack {
     new CfnOutput(this, "AppCloudFrontURL", {
       value: distribution.domainName,
       description: "The distribution URL",
-      exportName: "AppCloudFrontURL",
+      exportName: "cdk-tasks-add-AppCloudFrontURL",
     });
 
     new CfnOutput(this, "AppBucketName", {
       value: hostingBucket.bucketName,
       description: "The name of the S3 bucket",
-      exportName: "AppBucketName",
+      exportName: "cdk-tasks-add-AppBucketName",
     });
   }
 }
