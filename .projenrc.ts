@@ -1,9 +1,10 @@
-import { typescript, awscdk } from "projen";
+import { typescript, awscdk, javascript } from "projen";
 import { monorepo } from "@aws/pdk";
 const project = new monorepo.MonorepoTsProject({
   devDeps: ["@aws/pdk"],
   name: "cdk-tasks",
   projenrcTs: true,
+  packageManager: javascript.NodePackageManager.NPM,
 });
 const backend = new awscdk.AwsCdkTypeScriptApp({
   name: "backend",
@@ -28,6 +29,7 @@ const backend = new awscdk.AwsCdkTypeScriptApp({
     "source-map-support",
     "uuid",
   ],
+  packageManager: javascript.NodePackageManager.NPM,
 });
 const frontend = new typescript.TypeScriptAppProject({
   name: "frontend",
@@ -36,6 +38,7 @@ const frontend = new typescript.TypeScriptAppProject({
   devDeps: ["vite", "@types/alpinejs", "@types/web"],
   outdir: "frontend",
   parent: project,
+  packageManager: javascript.NodePackageManager.NPM,
 });
 backend.addTask("appsync:codegen", {
   exec: "graphql-codegen -c src/lib/stacks/api/codegen.yml",
@@ -43,10 +46,10 @@ backend.addTask("appsync:codegen", {
 frontend.addTask("dev", {
   exec: "vite",
 });
-frontend.removeTask("build")
+frontend.removeTask("build");
 frontend.addTask("build", {
   exec: "vite build",
-})
+});
 project.addTask("dev", {
   exec: "APP_STAGE=dev npx projen run-many --all --targets=dev",
 });

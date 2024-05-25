@@ -24,4 +24,3 @@ jobs:
       - name: Build
         run: npx projen build
 
-# https://dev.to/slsbytheodo/configure-authentication-to-your-aws-account-in-your-github-actions-ci-13p3

@@ -18,8 +18,8 @@
     "upgrade": "npx projen upgrade",
     "upgrade-deps": "npx projen upgrade-deps",
     "watch": "npx projen watch",
-    "install:ci": "yarn projen install:ci",
-    "synth-workspace": "yarn projen"
+    "install:ci": "npx projen install:ci",
+    "synth-workspace": "npx projen"
   },
   "devDependencies": {
     "@aws/pdk": "^0.23.40",
@@ -48,14 +48,13 @@
     "aws-cdk-lib": "^2.143.0",
     "cdk-nag": "^2.28.123"
   },
-  "resolutions": {
+  "overrides": {
     "@types/babel__traverse": "7.18.2",
     "@zkochan/js-yaml": "npm:js-yaml@4.1.0",
     "wrap-ansi": "^7.0.0"
   },
   "engines": {
-    "node": ">=16",
-    "yarn": ">=1 <2"
+    "node": ">=16"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
