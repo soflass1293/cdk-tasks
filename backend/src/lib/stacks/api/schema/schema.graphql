@@ -1,7 +1,6 @@
 scalar AWSDateTime
 scalar AWSURL
 scalar Int
-scalar AWSJSON
 
 schema {
   query: Query

@@ -16,18 +16,22 @@ export class EventsStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: EventStackProps) {
     super(scope, id, props);
 
-    const fnArchiveTodoWorker = new NodejsFunction(this, "AppArchiveTodoWorker", {
-      runtime: lambda.Runtime.NODEJS_20_X,
-      entry: join(__dirname, "workers", "archive-todo.ts"),
-      handler: "handler",
-      environment: {
-        APP_ARCHIVED_TABLE: props.archivedTable.tableName
-      }
-    });
-    props.archivedTable.grantWriteData(fnArchiveTodoWorker)
+    const fnArchiveTodoWorker = new NodejsFunction(
+      this,
+      "AppArchiveTodoWorker",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: join(__dirname, "workers", "archive-todo.ts"),
+        handler: "handler",
+        environment: {
+          APP_ARCHIVED_TABLE: props.archivedTable.tableName,
+        },
+      },
+    );
+    props.archivedTable.grantWriteData(fnArchiveTodoWorker);
 
     const deletedTodo = "TODO_DELETED" as TodoDeletedEvent["eventName"];
-    const source = process.env.EVENT_SOURCE as string
+    const source = "com.soflass.cdk.todos";
     const rule = new events.Rule(this, "AppEventBridgeRule", {
       eventPattern: {
         source: [source],

@@ -19,7 +19,6 @@ export class DatabaseStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
       billingMode: BillingMode.PAY_PER_REQUEST,
-      tableName: process.env.APP_TABLE,
     });
 
     this.archivedTable = new dynamodb.Table(this, "AppArchivedTable", {
@@ -30,7 +29,6 @@ export class DatabaseStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
       stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
       billingMode: BillingMode.PAY_PER_REQUEST,
-      tableName: process.env.APP_ARCHIVED_TABLE,
     });
   }
 }

@@ -1,5 +1,13 @@
 {
   "tasks": {
+    "appsync:codegen": {
+      "name": "appsync:codegen",
+      "steps": [
+        {
+          "exec": "graphql-codegen -c src/lib/stacks/api/codegen.yml"
+        }
+      ]
+    },
     "build": {
       "name": "build",
       "description": "Full release build",
@@ -159,13 +167,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@graphql-codegen/add,@graphql-codegen/cli,@graphql-codegen/typescript,@types/jest,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,ts-jest,ts-node,typescript,@aws-amplify/graphql-api-construct,@aws-cdk/aws-lambda-nodejs,@aws-sdk/client-dynamodb,@aws-sdk/client-eventbridge,@aws-sdk/lib-dynamodb,@types/aws-lambda,dotenv,source-map-support,uuid"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest ts-node typescript aws-cdk-lib constructs"
+          "exec": "yarn upgrade @graphql-codegen/add @graphql-codegen/cli @graphql-codegen/typescript @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit projen ts-jest ts-node typescript @aws-amplify/graphql-api-construct @aws-cdk/aws-lambda-nodejs @aws-sdk/client-dynamodb @aws-sdk/client-eventbridge @aws-sdk/lib-dynamodb @types/aws-lambda aws-cdk-lib constructs dotenv source-map-support uuid"
         },
         {
           "exec": "npx projen"

@@ -3,17 +3,17 @@ import {
   createHttpLink,
   gql,
   InMemoryCache,
-} from "@apollo/client/core";
+} from '@apollo/client/core';
 
 const HTTP_LINK =
-  "https://3c45ver6qbfjvehtm3cvigmwvm.appsync-api.us-east-1.amazonaws.com/graphql";
+  'https://4qfljing7rct7aeewwjhngoziu.appsync-api.us-east-1.amazonaws.com/graphql';
 
-const API_KEY = "da2-mfqlrdst6vdwpa2wl2a3gdte3u";
+const API_KEY = 'da2-5xxgzzrewfdtvexpe5jvjctg6a';
 
 const link = createHttpLink({
   uri: HTTP_LINK,
   headers: {
-    "x-api-key": API_KEY,
+    'x-api-key': API_KEY,
   },
 });
 

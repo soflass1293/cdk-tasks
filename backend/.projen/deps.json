@@ -1,6 +1,18 @@
 {
   "dependencies": [
     {
+      "name": "@graphql-codegen/add",
+      "type": "build"
+    },
+    {
+      "name": "@graphql-codegen/cli",
+      "type": "build"
+    },
+    {
+      "name": "@graphql-codegen/typescript",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -68,6 +80,30 @@
       "type": "build"
     },
     {
+      "name": "@aws-amplify/graphql-api-construct",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-lambda-nodejs",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/client-dynamodb",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/client-eventbridge",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-sdk/lib-dynamodb",
+      "type": "runtime"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "runtime"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "^2.142.1",
       "type": "runtime"
@@ -75,6 +111,18 @@
     {
       "name": "constructs",
       "version": "^10.0.5",
+      "type": "runtime"
+    },
+    {
+      "name": "dotenv",
+      "type": "runtime"
+    },
+    {
+      "name": "source-map-support",
+      "type": "runtime"
+    },
+    {
+      "name": "uuid",
       "type": "runtime"
     }
   ],

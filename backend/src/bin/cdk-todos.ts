@@ -6,10 +6,20 @@ import "dotenv/config";
 
 const app = new cdk.App();
 
-const { table, archivedTable } = new DatabaseStack(app, "DatabaseStack");
+const { table, archivedTable } = new DatabaseStack(app, "DatabaseStack", {
+  stackName: "cdk-tasks-add-backend-database",
+});
 new APIStack(app, "APIStack", {
   table,
   archivedTable,
+  stackName: "cdk-tasks-add-backend-api",
 });
-new EventsStack(app, "EventsStack", { archivedTable });
-new WebsiteStack(app, "WebsiteStack");
+new EventsStack(app, "EventsStack", {
+  archivedTable,
+  stackName: "cdk-tasks-add-backend-events",
+});
+if (false) {
+  new WebsiteStack(app, "WebsiteStack", {
+    stackName: "cdk-tasks-add-backend-website",
+  });
+}

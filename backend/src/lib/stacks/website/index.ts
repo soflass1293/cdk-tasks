@@ -32,7 +32,7 @@ export class WebsiteStack extends cdk.Stack {
       ],
     });
 
-    const asset = process.env.SOURCE_ASSET as string
+    const asset = "../../../../../frontend/dist"
     new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
       sources: [Source.asset(join(__dirname, asset))],
       destinationBucket: hostingBucket,

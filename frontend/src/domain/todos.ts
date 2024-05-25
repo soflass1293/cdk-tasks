@@ -1,4 +1,4 @@
-import { client, gql } from "./graphql/client";
+import { client, gql } from './graphql/client';
 import {
   CreateTodoDocument,
   DeleteTodoDocument,
@@ -7,12 +7,12 @@ import {
   type CreateTodoInput,
   type DeleteTodoInput,
   type ToggleCompletedInput,
-} from "./graphql/generated";
+} from './graphql/generated';
 
 const getTodos = () => {
   return client.query({
     query: GetTodosDocument,
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
   });
 };
 
