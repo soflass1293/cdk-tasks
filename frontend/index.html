@@ -53,7 +53,6 @@
               autocomplete="off"
               id="addt"
               x-model="name"
-              @keydown.enter="handleSubmit"
             />
           </div>
         </div>
@@ -63,7 +62,7 @@
         <ul class="todos">
           <template x-for="todo in filteredTodos">
             <li class="card">
-              <div class="cb-container" @click="handleToggleCompleted(todo.id)">
+              <div class="cb-container cursor-pointer" @click="handleToggleCompleted(todo.id)">
                 <template x-if="todo.completed">
                   <div class="cb-checkbox-wrapper">
                     <div class="cb-checkbox" type="checkbox"></div>
@@ -76,7 +75,7 @@
                   </div>
                 </template>
               </div>
-              <p class="item" x-text="todo.title"></p>
+              <p class="item" x-text="todo.name"></p>
               <button class="clear" @click="handleDelete(todo.id)">
                 <img src="/images/icon-cross.svg" alt="Clear it" />
               </button>

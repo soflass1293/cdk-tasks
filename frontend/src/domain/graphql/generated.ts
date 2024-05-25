@@ -8,14 +8,13 @@ export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> =
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  AWSDateTime: { input: string; output: string; }
-  AWSJSON: { input: AnyJson; output: AnyJson; }
-  AWSURL: { input: string; output: string; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  AWSDateTime: { input: string; output: string };
+  AWSURL: { input: string; output: string };
 };
 
 export type CreateTodoInput = {
@@ -72,46 +71,46 @@ export type ToggleCompletedInput = {
   id: Scalars['String']['input'];
 };
 
-export type GetTodosQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetTodosQueryVariables = Exact<{ [key: string]: never }>;
 
 
-export type GetTodosQuery = { __typename?: 'Query', getTodos?: Array<{ __typename?: 'Todo', id: string, name: string, completed?: boolean | null } | null> | null };
+export type GetTodosQuery = { __typename?: 'Query'; getTodos?: Array<{ __typename?: 'Todo'; id: string; name: string; completed?: boolean | null } | null> | null };
 
 export type CreateTodoMutationVariables = Exact<{
   input: CreateTodoInput;
 }>;
 
 
-export type CreateTodoMutation = { __typename?: 'Mutation', createTodo?: { __typename?: 'Todo', id: string, name: string, completed?: boolean | null, createdAt?: string | null } | null };
+export type CreateTodoMutation = { __typename?: 'Mutation'; createTodo?: { __typename?: 'Todo'; id: string; name: string; completed?: boolean | null; createdAt?: string | null } | null };
 
 export type ToggleCompletedMutationVariables = Exact<{
   input: ToggleCompletedInput;
 }>;
 
 
-export type ToggleCompletedMutation = { __typename?: 'Mutation', toggleCompleted?: { __typename?: 'Todo', id: string, name: string, completed?: boolean | null, createdAt?: string | null } | null };
+export type ToggleCompletedMutation = { __typename?: 'Mutation'; toggleCompleted?: { __typename?: 'Todo'; id: string; name: string; completed?: boolean | null; createdAt?: string | null } | null };
 
 export type DeleteTodoMutationVariables = Exact<{
   input: DeleteTodoInput;
 }>;
 
 
-export type DeleteTodoMutation = { __typename?: 'Mutation', deleteTodo?: boolean | null };
+export type DeleteTodoMutation = { __typename?: 'Mutation'; deleteTodo?: boolean | null };
 
-export type OnTodoCreatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
-
-
-export type OnTodoCreatedSubscription = { __typename?: 'Subscription', onTodoCreated?: { __typename?: 'Todo', id: string, name: string, completed?: boolean | null, createdAt?: string | null } | null };
-
-export type OnTodoUpdatedSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type OnTodoCreatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 
-export type OnTodoUpdatedSubscription = { __typename?: 'Subscription', onTodoCreated?: { __typename?: 'Todo', id: string, name: string, completed?: boolean | null, createdAt?: string | null } | null };
+export type OnTodoCreatedSubscription = { __typename?: 'Subscription'; onTodoCreated?: { __typename?: 'Todo'; id: string; name: string; completed?: boolean | null; createdAt?: string | null } | null };
+
+export type OnTodoUpdatedSubscriptionVariables = Exact<{ [key: string]: never }>;
 
 
-export const GetTodosDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getTodos"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"getTodos"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}}]}}]}}]} as unknown as DocumentNode<GetTodosQuery, GetTodosQueryVariables>;
-export const CreateTodoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createTodo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateTodoInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createTodo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<CreateTodoMutation, CreateTodoMutationVariables>;
-export const ToggleCompletedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"toggleCompleted"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ToggleCompletedInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"toggleCompleted"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<ToggleCompletedMutation, ToggleCompletedMutationVariables>;
-export const DeleteTodoDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"deleteTodo"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DeleteTodoInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"deleteTodo"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}]}]}}]} as unknown as DocumentNode<DeleteTodoMutation, DeleteTodoMutationVariables>;
-export const OnTodoCreatedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"onTodoCreated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"onTodoCreated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<OnTodoCreatedSubscription, OnTodoCreatedSubscriptionVariables>;
-export const OnTodoUpdatedDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"subscription","name":{"kind":"Name","value":"onTodoUpdated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"onTodoCreated"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"completed"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<OnTodoUpdatedSubscription, OnTodoUpdatedSubscriptionVariables>;
+export type OnTodoUpdatedSubscription = { __typename?: 'Subscription'; onTodoCreated?: { __typename?: 'Todo'; id: string; name: string; completed?: boolean | null; createdAt?: string | null } | null };
+
+
+export const GetTodosDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'query', name: { kind: 'Name', value: 'getTodos' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'getTodos' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }, { kind: 'Field', name: { kind: 'Name', value: 'name' } }, { kind: 'Field', name: { kind: 'Name', value: 'completed' } }] } }] } }] } as unknown as DocumentNode<GetTodosQuery, GetTodosQueryVariables>;
+export const CreateTodoDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'mutation', name: { kind: 'Name', value: 'createTodo' }, variableDefinitions: [{ kind: 'VariableDefinition', variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } }, type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'CreateTodoInput' } } } }], selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'createTodo' }, arguments: [{ kind: 'Argument', name: { kind: 'Name', value: 'input' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } } }], selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }, { kind: 'Field', name: { kind: 'Name', value: 'name' } }, { kind: 'Field', name: { kind: 'Name', value: 'completed' } }, { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }] } }] } }] } as unknown as DocumentNode<CreateTodoMutation, CreateTodoMutationVariables>;
+export const ToggleCompletedDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'mutation', name: { kind: 'Name', value: 'toggleCompleted' }, variableDefinitions: [{ kind: 'VariableDefinition', variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } }, type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'ToggleCompletedInput' } } } }], selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'toggleCompleted' }, arguments: [{ kind: 'Argument', name: { kind: 'Name', value: 'input' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } } }], selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }, { kind: 'Field', name: { kind: 'Name', value: 'name' } }, { kind: 'Field', name: { kind: 'Name', value: 'completed' } }, { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }] } }] } }] } as unknown as DocumentNode<ToggleCompletedMutation, ToggleCompletedMutationVariables>;
+export const DeleteTodoDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'mutation', name: { kind: 'Name', value: 'deleteTodo' }, variableDefinitions: [{ kind: 'VariableDefinition', variable: { kind: 'Variable', name: { kind: 'Name', value: 'input' } }, type: { kind: 'NonNullType', type: { kind: 'NamedType', name: { kind: 'Name', value: 'DeleteTodoInput' } } } }], selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'deleteTodo' }, arguments: [{ kind: 'Argument', name: { kind: 'Name', value: 'input' }, value: { kind: 'Variable', name: { kind: 'Name', value: 'input' } } }] }] } }] } as unknown as DocumentNode<DeleteTodoMutation, DeleteTodoMutationVariables>;
+export const OnTodoCreatedDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'subscription', name: { kind: 'Name', value: 'onTodoCreated' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'onTodoCreated' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }, { kind: 'Field', name: { kind: 'Name', value: 'name' } }, { kind: 'Field', name: { kind: 'Name', value: 'completed' } }, { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }] } }] } }] } as unknown as DocumentNode<OnTodoCreatedSubscription, OnTodoCreatedSubscriptionVariables>;
+export const OnTodoUpdatedDocument = { kind: 'Document', definitions: [{ kind: 'OperationDefinition', operation: 'subscription', name: { kind: 'Name', value: 'onTodoUpdated' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'onTodoCreated' }, selectionSet: { kind: 'SelectionSet', selections: [{ kind: 'Field', name: { kind: 'Name', value: 'id' } }, { kind: 'Field', name: { kind: 'Name', value: 'name' } }, { kind: 'Field', name: { kind: 'Name', value: 'completed' } }, { kind: 'Field', name: { kind: 'Name', value: 'createdAt' } }] } }] } }] } as unknown as DocumentNode<OnTodoUpdatedSubscription, OnTodoUpdatedSubscriptionVariables>;

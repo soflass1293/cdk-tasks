@@ -5,10 +5,10 @@ import {
   InMemoryCache,
 } from "@apollo/client/core";
 
-const HTTP_LINK =
-  "https://3c45ver6qbfjvehtm3cvigmwvm.appsync-api.us-east-1.amazonaws.com/graphql";
-
-const API_KEY = "da2-mfqlrdst6vdwpa2wl2a3gdte3u";
+// @ts-ignore
+const HTTP_LINK = import.meta.env.VITE_API_HOST;
+// @ts-ignore
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const link = createHttpLink({
   uri: HTTP_LINK,
