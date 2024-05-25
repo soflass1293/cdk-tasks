@@ -1,8 +1,6 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import {
-  DynamoDBDocument,
-  PutCommandInput,
-  UpdateCommandInput,
+  DynamoDBDocument
 } from '@aws-sdk/lib-dynamodb';
 import { BaseRecord, KeyRecord } from '../records/base-record';
 
