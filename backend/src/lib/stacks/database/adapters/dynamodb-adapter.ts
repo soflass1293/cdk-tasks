@@ -1,8 +1,6 @@
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import {
-  DynamoDBDocument
-} from '@aws-sdk/lib-dynamodb';
-import { BaseRecord, KeyRecord } from '../records/base-record';
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
+import { BaseRecord, KeyRecord } from "../records/base-record";
 
 interface DynamoDBAdapterDependencies {
   readonly db?: DynamoDBDocument;
@@ -44,7 +42,7 @@ export class DynamoDBAdapter {
     const { Attributes } = await this._db.delete({
       TableName: this._tableName,
       Key,
-      ReturnValues: 'ALL_OLD',
+      ReturnValues: "ALL_OLD",
     });
     return Attributes as T;
   }
