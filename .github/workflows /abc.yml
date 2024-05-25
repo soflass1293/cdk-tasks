@@ -1,5 +1,5 @@
 name: PR Merged to Main
-on: [push]
+on: ['push']
 
 permissions:
   contents: read
