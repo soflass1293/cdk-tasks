@@ -1,0 +1,59 @@
+type Mutation {
+  createTodo(input: CreateTodoInput!): Todo
+  toggleCompleted(input: ToggleCompletedInput!): Todo
+  deleteTodo(input: DeleteTodoInput!): Boolean
+}
+
+type Query {
+  getTodos: [Todo]
+}
+
+type Subscription {
+  onTodoCreated: Todo @aws_subscribe(mutations: ["createTodo"])
+  onTodoUpdated: Todo @aws_subscribe(mutations: ["toggleCompleted"])
+  onTodoDeleted: Boolean @aws_subscribe(mutations: ["deleteTodo"])
+}
+
+query getTodos {
+  getTodos {
+    id
+    name
+    completed
+  }
+}
+mutation createTodo($input: CreateTodoInput!) {
+  createTodo(input: $input) {
+    id
+    name
+    completed
+    createdAt
+  }
+}
+mutation toggleCompleted($input: ToggleCompletedInput!) {
+  toggleCompleted(input: $input) {
+    id
+    name
+    completed
+    createdAt
+  }
+}
+mutation deleteTodo($input: DeleteTodoInput!) {
+  deleteTodo(input: $input)
+}
+
+subscription onTodoCreated {
+  onTodoCreated {
+    id
+    name
+    completed
+    createdAt
+  }
+}
+subscription onTodoUpdated {
+  onTodoUpdated {
+    id
+    name
+    completed
+    createdAt
+  }
+}

@@ -2,34 +2,99 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projen Tasks</title>
+    <meta name="author" content="Hari Ram" />
+    <title>Projen Task</title>
+    <meta
+      name="description"
+      content="This is a front-end coding challenge - TODO APP"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      rel="preload"
+      href="/images/icon-check.svg"
+      as="image"
+      type="image/svg+xml"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div id="app">
-      <div
-        x-data="{
-        search: '',
- 
-        items: ['foo', 'bar', 'baz'],
- 
-        get filteredItems() {
-            return this.items.filter(
-                i => i.startsWith(this.search)
-            )
-        }
-    }"
-      >
-        <input x-model="search" placeholder="Search..." />
+    <header class="card">
+      <h1>TODOS</h1>
+      <button id="theme-switcher" class="cursor-pointer">
+        <img src="/images/icon-sun.svg" alt="Change color theme" />
+      </button>
+    </header>
+    <main>
+      <form x-data="todos_form" @submit.prevent="handleSubmit">
+        <div class="card add">
+          <div class="cb-container">
+            <button id="add-btn" type="submit">+</button>
+          </div>
+          <div class="txt-container">
+            <label for="addt">Create todo</label>
+            <input
+              type="text"
+              class="txt-input"
+              placeholder="Create a new todo..."
+              spellcheck="false"
+              autocomplete="off"
+              id="addt"
+              x-model="name"
+              @keydown.enter="handleSubmit"
+            />
+          </div>
+        </div>
+      </form>
 
-        <ul>
-          <template x-for="item in filteredItems" :key="item">
-            <li x-text="item"></li>
+      <div x-data="todos_list" x-init="handleInit">
+        <ul class="todos">
+          <template x-for="todo in filteredTodos">
+            <li class="card">
+              <div class="cb-container" @click="handleToggleCompleted(todo.id)">
+                <template x-if="todo.completed">
+                  <div class="cb-checkbox-wrapper">
+                    <div class="cb-checkbox" type="checkbox"></div>
+                    <span class="check"></span>
+                  </div>
+                </template>
+                <template x-if="!todo.completed">
+                  <div class="cb-checkbox-wrapper">
+                    <div class="cb-input" type="checkbox"></div>
+                  </div>
+                </template>
+              </div>
+              <p class="item" x-text="todo.title"></p>
+              <button class="clear" @click="handleDelete(todo.id)">
+                <img src="/images/icon-cross.svg" alt="Clear it" />
+              </button>
+            </li>
           </template>
         </ul>
+        <div class="card stat">
+          <p class="corner"><span id="items-left" x-text="filteredTodos.length"></span> todos</p>
+          <div class="filter">
+            <button id="all" :class="{ 'on': filter === 'all' }" @click="handleFilter('all')">All</button>
+            <button id="active" :class="{ 'on': filter === 'active' }" @click="handleFilter('active')">Active</button>
+            <button id="completed" :class="{ 'on': filter === 'completed' }" @click="handleFilter('completed')">Completed</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
+    <footer></footer>
+    <script src="/js/scripts.js"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

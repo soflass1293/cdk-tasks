@@ -8,8 +8,8 @@ const project = new monorepo.MonorepoTsProject({
 const frontend = new typescript.TypeScriptAppProject({
   name: "frontend",
   defaultReleaseBranch: "main",
-  deps: ["alpinejs"],
-  devDeps: ["vite", "@types/alpinejs", "@types/web"],
+  deps: ["alpinejs", "@apollo/client", "graphql"],
+  devDeps: ["vite", "@types/alpinejs",'@types/web'],
   outdir: "frontend",
   parent: project,
 });

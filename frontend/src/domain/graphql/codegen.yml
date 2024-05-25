@@ -1,0 +1,27 @@
+overwrite: true
+schema:
+  - src/domain/graphql/schema.graphql
+documents:
+  - src/domain/graphql/operations.graphql
+
+config:
+  scalars:
+    AWSJSON: AnyJson
+    AWSDate: string
+    AWSTime: string
+    AWSDateTime: string
+    AWSTimestamp: number
+    AWSEmail: string
+    AWSURL: string
+    AWSPhone: string
+    AWSIPAddress: string
+
+generates:
+  'src/domain/graphql/generated.ts':
+    plugins:
+      - typescript
+      - typescript-operations
+      - typed-document-node
+    config:
+      enumsAsTypes: true
+      useTypeImports: true
