@@ -13,3 +13,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v3.x
