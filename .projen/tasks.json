@@ -61,6 +61,14 @@
         }
       ]
     },
+    "deploy": {
+      "name": "deploy",
+      "steps": [
+        {
+          "exec": "cd backend && npx projen deploy"
+        }
+      ]
+    },
     "dev": {
       "name": "dev",
       "steps": [

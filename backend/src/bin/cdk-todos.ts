@@ -4,20 +4,22 @@ import * as cdk from 'aws-cdk-lib';
 import { APIStack, DatabaseStack, EventsStack, WebsiteStack } from '../lib';
 import 'dotenv/config';
 
+const stage = process.env.STAGE;
+
 const app = new cdk.App();
 
 const { table, archivedTable } = new DatabaseStack(app, 'DatabaseStack', {
-  stackName: 'cdk-tasks-add-backend-database',
+  stackName: `database-${stage}`,
 });
 const api = new APIStack(app, 'APIStack', {
   table,
   archivedTable,
-  stackName: 'cdk-tasks-add-backend-api',
+  stackName: `api-${stage}`,
 });
 new EventsStack(app, 'EventsStack', {
   archivedTable,
-  stackName: 'cdk-tasks-add-backend-events',
+  stackName: `events-${stage}`,
 });
 new WebsiteStack(app, 'WebsiteStack', {
-  stackName: 'cdk-tasks-add-backend-website',
+  stackName: `website-${stage}`,
 }).addDependency(api);
