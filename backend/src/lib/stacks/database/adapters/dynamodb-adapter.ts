@@ -1,9 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocument,
-  PutCommandInput,
-  UpdateCommandInput,
-} from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { BaseRecord, KeyRecord } from "../records/base-record";
 
 interface DynamoDBAdapterDependencies {
@@ -27,9 +23,9 @@ export class DynamoDBAdapter {
   }
 
   async putItem<T extends Record<string, any> | undefined>(
-    item: T
+    item: T,
   ): Promise<void> {
-    await this._db.put({
+    void this._db.put({
       TableName: this._tableName,
       Item: item,
     });
@@ -46,13 +42,13 @@ export class DynamoDBAdapter {
     const { Attributes } = await this._db.delete({
       TableName: this._tableName,
       Key,
-      ReturnValues: "ALL_OLD"
+      ReturnValues: "ALL_OLD",
     });
     return Attributes as T;
   }
 
   async getItem<T extends BaseRecord>(
-    Key: KeyRecord<T>
+    Key: KeyRecord<T>,
   ): Promise<T | undefined> {
     const { Item } = await this._db.get({
       TableName: this._tableName,
@@ -65,9 +61,9 @@ export class DynamoDBAdapter {
   }
 
   async updateItem<T extends Record<string, any> | undefined>(
-    item: T
+    item: T,
   ): Promise<void> {
-    this._db.put({
+    void this._db.put({
       TableName: this._tableName,
       Item: item,
     });

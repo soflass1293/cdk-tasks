@@ -1,12 +1,12 @@
-import { EventBridge } from "@aws-sdk/client-eventbridge";
-import { AppSyncResolverHandler } from "aws-lambda";
-import { DynamoDBAdapter } from "../../database/adapters";
-import { DeleteTodoCommand } from "../../database/commands/delete-todo-command";
-import { AppSyncError, isAppSyncError } from "../../database/errors/appsync-error";
-import { EventDispatcher } from "../../events/dispatchers/event-dispatcher";
+import { EventBridge } from '@aws-sdk/client-eventbridge';
+import { AppSyncResolverHandler } from 'aws-lambda';
+import { DynamoDBAdapter } from '../../database/adapters';
+import { DeleteTodoCommand } from '../../database/commands/delete-todo-command';
+import { AppSyncError, isAppSyncError } from '../../database/errors/appsync-error';
+import { EventDispatcher } from '../../events/dispatchers/event-dispatcher';
 import {
-  Mutation, MutationDeleteTodoArgs
-} from "../types";
+  Mutation, MutationDeleteTodoArgs,
+} from '../types';
 
 const deleteTodoCommand = new DeleteTodoCommand({
   dynamoDBAdapter: new DynamoDBAdapter({
@@ -19,8 +19,8 @@ const deleteTodoCommand = new DeleteTodoCommand({
 });
 
 export const handler: AppSyncResolverHandler<
-  MutationDeleteTodoArgs,
-  Mutation["deleteTodo"] | AppSyncError | unknown
+MutationDeleteTodoArgs,
+Mutation['deleteTodo'] | AppSyncError | unknown
 > = async (event) => {
   try {
     const { input } = event.arguments;

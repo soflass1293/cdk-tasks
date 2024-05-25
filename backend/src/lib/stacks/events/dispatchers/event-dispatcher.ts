@@ -1,8 +1,8 @@
 import {
   EventBridge,
   PutEventsCommandOutput,
-} from "@aws-sdk/client-eventbridge";
-import { BaseEvent } from "../records";
+} from '@aws-sdk/client-eventbridge';
+import { BaseEvent } from '../records';
 
 
 export interface IEventDispatcherDependencies {
@@ -26,7 +26,7 @@ export class EventDispatcher {
   public async dispatch(events: BaseEvent[]): Promise<IDispatchResult> {
     const response = await this._client.putEvents({
       Entries: events.map((event) => ({
-        Source: "com.soflass.cdk.todos",
+        Source: 'com.soflass.cdk.todos',
         EventBusName: this._eventBusName,
         Detail: JSON.stringify(event),
         DetailType: event.eventName,

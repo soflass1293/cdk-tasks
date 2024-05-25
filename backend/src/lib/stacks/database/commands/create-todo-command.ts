@@ -1,8 +1,8 @@
-import { DateTimeString } from "../../../utils/types";
-import { uuid } from "../../../utils/uuid";
-import { DynamoDBAdapter } from "../adapters";
-import { Todo } from "../models";
-import { TodoRecord } from "../records";
+import { DateTimeString } from '../../../utils/types';
+import { uuid } from '../../../utils/uuid';
+import { DynamoDBAdapter } from '../adapters';
+import { Todo } from '../models';
+import { TodoRecord } from '../records';
 
 interface CreateTodoCommandDependencies {
   readonly dynamoDBAdapter: DynamoDBAdapter;
@@ -15,7 +15,7 @@ export class CreateTodoCommand {
   constructor(private readonly dependencies: CreateTodoCommandDependencies) {}
 
   async execute(
-    parameters: CreateTodoCommandParameters
+    parameters: CreateTodoCommandParameters,
   ): Promise<Todo & { createdAt: DateTimeString }> {
     const { name } = parameters;
 

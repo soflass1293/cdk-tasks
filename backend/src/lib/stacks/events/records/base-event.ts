@@ -1,4 +1,4 @@
-import { DateTimeString } from "../../../utils/types";
+import { DateTimeString } from '../../../utils/types';
 
 export interface BaseEvent {
   readonly eventId: string;

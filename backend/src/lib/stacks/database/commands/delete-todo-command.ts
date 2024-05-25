@@ -1,10 +1,10 @@
-import { DateTimeString } from "../../../utils/types";
-import { uuid } from "../../../utils/uuid";
-import { EventDispatcher } from "../../events/dispatchers/event-dispatcher";
-import { TodoDeletedEvent } from "../../events/records";
-import { DynamoDBAdapter } from "../adapters";
-import { TodoRecord } from "../records";
-import { KeyRecord } from "../records/base-record";
+import { DateTimeString } from '../../../utils/types';
+import { uuid } from '../../../utils/uuid';
+import { EventDispatcher } from '../../events/dispatchers/event-dispatcher';
+import { TodoDeletedEvent } from '../../events/records';
+import { DynamoDBAdapter } from '../adapters';
+import { TodoRecord } from '../records';
+import { KeyRecord } from '../records/base-record';
 
 interface DeleteTodoCommandDependencies {
   readonly dynamoDBAdapter: DynamoDBAdapter;
@@ -20,13 +20,13 @@ export class DeleteTodoCommand {
     const { id } = parameters;
 
     const todo = await this.dependencies.dynamoDBAdapter.deleteItem<TodoRecord>(
-      { id }
+      { id },
     );
 
     const eventId = uuid();
     const eventTime = new Date().toISOString() as DateTimeString;
     const event: TodoDeletedEvent = {
-      eventName: "TODO_DELETED",
+      eventName: 'TODO_DELETED',
       eventId,
       eventTime,
       eventVersion: 1,
@@ -41,7 +41,7 @@ export class DeleteTodoCommand {
     await this.dependencies.eventDispatcher.dispatch([event]);
 
     if (FailedEntryCount) {
-      throw new Error("someething wrong");
+      throw new Error('someething wrong');
     }
   }
 }
