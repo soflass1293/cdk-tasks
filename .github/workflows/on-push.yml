@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      #- uses: actions/setup-node@v3
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
+      - name: Print slug/short variables
+        run: echo " - ${{ env.GITHUB_HEAD_REF_SLUG }}"
