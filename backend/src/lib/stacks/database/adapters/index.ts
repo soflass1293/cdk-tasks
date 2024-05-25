@@ -1,1 +1,1 @@
-export { DynamoDBAdapter } from "./dynamodb-adapter";
+export { DynamoDBAdapter } from './dynamodb-adapter';

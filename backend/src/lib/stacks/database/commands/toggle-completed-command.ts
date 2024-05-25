@@ -1,8 +1,8 @@
-import { DateTimeString } from "../../../utils/types";
-import { DynamoDBAdapter } from "../adapters";
-import { TodoNonExistantError } from "../errors";
-import { Todo } from "../models";
-import { TodoRecord } from "../records";
+import { DateTimeString } from '../../../utils/types';
+import { DynamoDBAdapter } from '../adapters';
+import { TodoNonExistantError } from '../errors';
+import { Todo } from '../models';
+import { TodoRecord } from '../records';
 
 interface ToggleCompletedCommandDependencies {
   readonly dynamoDBAdapter: DynamoDBAdapter;
@@ -13,16 +13,16 @@ type ToggleCompletedCommandParameters = {
 
 export class ToggleCompletedCommand {
   constructor(
-    private readonly dependencies: ToggleCompletedCommandDependencies
+    private readonly dependencies: ToggleCompletedCommandDependencies,
   ) {}
 
   async execute(
-    parameters: ToggleCompletedCommandParameters
+    parameters: ToggleCompletedCommandParameters,
   ): Promise<(Todo & { createdAt: DateTimeString }) | undefined> {
     const { id } = parameters;
 
     const oldTodo = await this.dependencies.dynamoDBAdapter.getItem<TodoRecord>(
-      { id }
+      { id },
     );
     if (!oldTodo) {
       throw new TodoNonExistantError();

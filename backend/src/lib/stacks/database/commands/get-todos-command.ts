@@ -1,5 +1,5 @@
-import { DynamoDBAdapter } from "../adapters";
-import { TodoRecord } from "../records";
+import { DynamoDBAdapter } from '../adapters';
+import { TodoRecord } from '../records';
 
 interface GetTodosCommandDependencies {
   readonly dynamoDBAdapter: DynamoDBAdapter;

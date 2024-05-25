@@ -1,8 +1,8 @@
-import { DateTimeString } from "../../../utils/types";
-import { uuid } from "../../../utils/uuid";
-import { EventDispatcher } from "../../events/dispatchers/event-dispatcher";
-import { DynamoDBAdapter } from "../adapters";
-import { TodoRecord } from "../records";
+import { DateTimeString } from '../../../utils/types';
+import { uuid } from '../../../utils/uuid';
+import { EventDispatcher } from '../../events/dispatchers/event-dispatcher';
+import { DynamoDBAdapter } from '../adapters';
+import { TodoRecord } from '../records';
 
 interface ArchiveTodoCommandDependencies {
   readonly dynamoDBAdapter: DynamoDBAdapter;
@@ -18,7 +18,7 @@ export class ArchiveTodoCommand {
   constructor(private readonly dependencies: ArchiveTodoCommandDependencies) {}
 
   async execute(
-    parameters: ArchiveTodoCommandParameters
+    parameters: ArchiveTodoCommandParameters,
   ): Promise<void> {
     const { name, completed, createdAt } = parameters;
 

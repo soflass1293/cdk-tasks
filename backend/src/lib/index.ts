@@ -1,1 +1,1 @@
-export { APIStack, DatabaseStack, EventsStack, WebsiteStack } from "./stacks";
+export { APIStack, DatabaseStack, EventsStack, WebsiteStack } from './stacks';
