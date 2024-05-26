@@ -28,6 +28,7 @@ const backend = new awscdk.AwsCdkTypeScriptApp({
     "dotenv",
     "source-map-support",
     "uuid",
+    "frontend",
   ],
   packageManager: javascript.NodePackageManager.NPM,
 });
@@ -45,6 +46,10 @@ backend.addTask("appsync:codegen", {
 });
 frontend.addTask("dev", {
   exec: "vite",
+});
+frontend.removeTask("build");
+frontend.addTask("build", {
+  exec: "npx vite build",
 });
 project.addTask("dev", {
   exec: "APP_STAGE=dev npx projen run-many --all --targets=dev",

@@ -44,13 +44,6 @@
         "cwd": "frontend"
       }
     },
-    "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx projen build",
-        "cwd": "frontend"
-      }
-    },
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
@@ -90,6 +83,13 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx projen dev",
+        "cwd": "frontend"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx projen build",
         "cwd": "frontend"
       }
     }
