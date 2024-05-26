@@ -15,7 +15,7 @@ concurrency:
 jobs:
   deploy:
     env:
-      group: ci
+      STAGE: ci${{ github.event.pull_request.number }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +24,6 @@ jobs:
         run: npm install
       - name: Build
         run: npx projen build
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v3.x
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -33,4 +31,4 @@ jobs:
           aws-region: us-east-1
       - name: Deploy
         working-directory: ./backend
-        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx cdk deploy --all --verbose --require-approval never
+        run: npx cdk deploy --all --verbose --require-approval never
