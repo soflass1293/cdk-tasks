@@ -1,6 +1,6 @@
 import { join } from "path";
 import * as cdk from "aws-cdk-lib";
-import { BundlingFileAccess, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
@@ -41,9 +41,9 @@ export class WebsiteStack extends cdk.Stack {
     const asset = "../../../../../frontend";
     new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
       sources: [
-        Source.asset(join(__dirname, asset), {
+        Source.asset('.', {
           bundling: {
-            image: cdk.DockerImage.fromBuild(join(__dirname, asset + '/Dockerfile')),
+            image: cdk.DockerImage.fromBuild(join(__dirname, asset)),
             environment: {
               VITE_API_HOST: props?.graphqlUrl!,
               VITE_API_KEY: props?.apiKey!,

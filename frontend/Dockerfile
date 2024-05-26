@@ -8,5 +8,6 @@ COPY --chown=node:node package*.json ./
 
 RUN npm install
 COPY --chown=node:node . .
+RUN npx vite build
 
-CMD [ "npx", "vite", "build" ]
+CMD ["cp", "-r", "/dist/.", "/asset-output/"]
