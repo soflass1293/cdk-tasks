@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build
-        run: npx projen build
+        run:  VITE_API_KEY=da2-eqqtdjea6jhhja6o5odpop6y5q VITE_API_HOST=https://zjtfzllrnvecnn3zkysgjfbhdm.appsync-api.us-east-1.amazonaws.com/graphql npx projen build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
