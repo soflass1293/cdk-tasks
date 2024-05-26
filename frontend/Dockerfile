@@ -12,6 +12,6 @@ RUN npx vite build
 RUN echo "lsssssssssssss"
 RUN pwd
 RUN ls -al
-RUN echo "lsssssssssssss"
+RUN echo "lsssssssssssss9999"
 
-CMD ["cp", "-r", "./dist/.", "/asset-output"]
+CMD ["ls", "-al"]
