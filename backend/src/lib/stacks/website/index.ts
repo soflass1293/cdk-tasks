@@ -44,7 +44,7 @@ export class WebsiteStack extends cdk.Stack {
         Source.asset(join(__dirname, asset), {
           bundling: {
             bundlingFileAccess: BundlingFileAccess.VOLUME_COPY,
-            image: cdk.DockerImage.fromBuild('./Dockerfile'),
+            image: cdk.DockerImage.fromBuild('../../../../../frontend/Dockerfile'),
             environment: {
               VITE_API_HOST: props?.graphqlUrl!,
               VITE_API_KEY: props?.apiKey!,
