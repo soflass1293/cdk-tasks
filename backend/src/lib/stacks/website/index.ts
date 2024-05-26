@@ -56,6 +56,7 @@ export class WebsiteStack extends cdk.Stack {
               ls /asset-input \
           cd /asset-input \
           && npm install \
+          sudo chown -R 1001:127 "/.npm" \
           ls /asset-input \
           && npx vite build \
           ls /asset-input \
