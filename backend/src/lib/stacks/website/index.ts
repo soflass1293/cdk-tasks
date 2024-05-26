@@ -37,14 +37,13 @@ export class WebsiteStack extends cdk.Stack {
         },
       ],
     });
-
-    const asset = "../../../../frontend";
+    
+    const asset = "../../../../../frontend";
     new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
       sources: [
         Source.asset(join(__dirname, asset), {
           bundling: {
-            bundlingFileAccess: BundlingFileAccess.VOLUME_COPY,
-            image: cdk.DockerImage.fromBuild(join(__dirname, "./Dockerfile")),
+            image: cdk.DockerImage.fromBuild(join(__dirname, asset + '/Dockerfile')),
             environment: {
               VITE_API_HOST: props?.graphqlUrl!,
               VITE_API_KEY: props?.apiKey!,
