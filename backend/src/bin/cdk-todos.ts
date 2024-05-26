@@ -24,4 +24,4 @@ new WebsiteStack(app, 'WebsiteStack', {
   stackName: `website-${stage}`,
   graphqlUrl: api.graphqlUrl,
   apiKey: api.apiKey,
-}).addDependency(api);
+});

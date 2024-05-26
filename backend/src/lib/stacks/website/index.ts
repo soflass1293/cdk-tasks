@@ -38,19 +38,9 @@ export class WebsiteStack extends cdk.Stack {
       ],
     });
     
-    const asset = "../../../../../frontend";
-    new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
-      sources: [
-        Source.asset('.', {
-          bundling: {
-            image: cdk.DockerImage.fromBuild(join(__dirname, asset)),
-            environment: {
-              VITE_API_HOST: props?.graphqlUrl!,
-              VITE_API_KEY: props?.apiKey!,
-            },
-          },
-        }),
-      ],
+    const asset = "../../../../../frontend/dist";
+    new BucketDeployment(this, "AppDeploymentBucket", {
+      sources: [Source.asset(join(__dirname, asset))],
       destinationBucket: hostingBucket,
       distribution,
       distributionPaths: ["/*"],
