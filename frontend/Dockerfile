@@ -9,5 +9,9 @@ COPY --chown=node:node package*.json ./
 RUN npm install
 COPY --chown=node:node . .
 RUN npx vite build
+RUN echo "lsssssssssssss"
+RUN pwd
+RUN ls -al
+RUN echo "lsssssssssssss"
 
 CMD ["cp", "-r", "/dist/.", "/asset-output/"]
