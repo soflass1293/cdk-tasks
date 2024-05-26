@@ -13,6 +13,6 @@ RUN echo "lsssssssssssss"
 RUN pwd
 RUN ls -al
 RUN echo "lsssssssssssss9999"
-COPY --chown=node:node dist/. /asset-output/
+COPY --chown=node:node /home/node/dist/. /asset-output/
 
 CMD ["ls", "-al"]
