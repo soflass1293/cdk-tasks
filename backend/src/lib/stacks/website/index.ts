@@ -1,6 +1,6 @@
 import { join } from "path";
 import * as cdk from "aws-cdk-lib";
-import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { BundlingFileAccess, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
@@ -43,6 +43,7 @@ export class WebsiteStack extends cdk.Stack {
       sources: [
         Source.asset(join(__dirname, asset), {
           bundling: {
+            bundlingFileAccess: BundlingFileAccess.VOLUME_COPY,
             image: cdk.DockerImage.fromRegistry("node:latest"),
             command: [
               "bash",
