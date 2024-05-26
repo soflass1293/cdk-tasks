@@ -37,16 +37,7 @@ export class WebsiteStack extends cdk.Stack {
         },
       ],
     });
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log(props?.graphqlUrl!);
-    console.log(props?.apiKey!);
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
-    console.log("vaaaaaaaaaaaarrrsss");
+    
     const asset = "../../../../../frontend";
     new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
       sources: [
@@ -59,7 +50,7 @@ export class WebsiteStack extends cdk.Stack {
               `
           cd /asset-input \
           && npm install \
-          && npx vite  \
+          && npx vite build \
           && mv dist/* /asset-output
   `,
             ],
