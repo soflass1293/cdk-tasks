@@ -5,7 +5,6 @@
     "clobber": "npx projen clobber",
     "compile": "npx projen compile",
     "default": "npx projen default",
-    "deploy": "npx projen deploy",
     "dev": "npx projen dev",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",

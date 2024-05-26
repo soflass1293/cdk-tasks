@@ -24,4 +24,5 @@ jobs:
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: us-east-1
       - name: Deploy
-        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen deploy
+        working-directory: ./backend
+        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx cdk deploy --all --verbose --require-approval never
