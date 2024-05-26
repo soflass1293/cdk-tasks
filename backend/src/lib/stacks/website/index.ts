@@ -37,14 +37,23 @@ export class WebsiteStack extends cdk.Stack {
         },
       ],
     });
-
-    const asset = "../../../../../frontend/dist";
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log(props?.graphqlUrl!)
+    console.log(props?.apiKey!)
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    console.log("vaaaaaaaaaaaarrrsss")
+    const asset = "../../../../../frontend";
     new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
       sources: [
         Source.asset(join(__dirname, asset), {
           bundling: {
             image: cdk.DockerImage.fromRegistry("node:latest"),
-            command: [],
+            command: ["npm install", "vite build"],
             environment: {
               VITE_API_HOST: props?.graphqlUrl!,
               VITE_API_KEY: props?.apiKey!,
