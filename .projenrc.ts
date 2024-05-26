@@ -54,6 +54,6 @@ project.addTask("dev", {
   exec: "APP_STAGE=dev npx projen run-many --all --targets=dev",
 });
 project.addTask("deploy", {
-  exec: "cd backend && npx projen deploy",
+  exec: "cd backend && npx projen deploy --all --verbose --require-approval never",
 });
 project.synth();

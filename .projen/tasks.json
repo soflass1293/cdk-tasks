@@ -65,7 +65,7 @@
       "name": "deploy",
       "steps": [
         {
-          "exec": "cd backend && npx projen deploy"
+          "exec": "cd backend && npx projen deploy --all --verbose --require-approval never"
         }
       ]
     },
