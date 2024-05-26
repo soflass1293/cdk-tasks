@@ -14,4 +14,4 @@ RUN pwd
 RUN ls -al
 RUN echo "lsssssssssssss"
 
-CMD ["cp", "-r", "/dist/.", "/asset-output/"]
+CMD ["cp", "-r", "./dist/.", "/asset-output"]
