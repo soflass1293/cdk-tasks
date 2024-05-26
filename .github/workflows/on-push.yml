@@ -7,8 +7,13 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: ci${{ github.event.pull_request.number }}
+
 jobs:
   deploy:
+    env:
+      group: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
