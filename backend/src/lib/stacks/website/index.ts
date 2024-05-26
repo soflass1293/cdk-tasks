@@ -8,8 +8,6 @@ import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
 import { Construct } from 'constructs';
 import { genstr } from '../../utils/rand-str';
 
-
-
 type WebsiteStackProps = cdk.StackProps & {
   graphqlUrl: string | null;
   apiKey: string | undefined;
@@ -48,7 +46,6 @@ export class WebsiteStack extends cdk.Stack {
       distributionPaths: ['/*'],
 
 
-      
     });
 
     new CfnOutput(this, 'AppCloudFrontURL', {
@@ -62,5 +59,7 @@ export class WebsiteStack extends cdk.Stack {
       description: 'The name of the S3 bucket',
       exportName: `${props?.stackName}-${genstr(5)}-AppBucketName`,
     });
+
+    console.log('soss' + props?.apiKey + props?.graphqlUrl);
   }
 }
