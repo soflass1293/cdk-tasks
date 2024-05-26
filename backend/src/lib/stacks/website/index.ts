@@ -49,8 +49,10 @@ export class WebsiteStack extends cdk.Stack {
               "bash",
               "-c",
               `
+              echo "YOOOOOOOOOOOOOOOOOOOOOOOOOOOO" \
               pwd \
               ls -al \
+              echo "LSSSSSSS - ls /asset-input" \
               ls /asset-input \
           cd /asset-input \
           && npm install \
