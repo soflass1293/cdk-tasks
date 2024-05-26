@@ -13,6 +13,9 @@ type APIStackProps = cdk.StackProps & {
 };
 
 export class APIStack extends cdk.Stack {
+  graphqlUrl: string | null= null;
+  apiKey: string | undefined = "";
+
   constructor(scope: Construct, id: string, props: APIStackProps) {
     super(scope, id, props);
 
@@ -111,6 +114,8 @@ export class APIStack extends cdk.Stack {
       ),
     });
 
+    this.graphqlUrl= api.graphqlUrl;
+    this.apiKey = api.apiKey;
     new cdk.CfnOutput(this, 'GraphQLAPIURL', {
       value: api.graphqlUrl,
     });
