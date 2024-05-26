@@ -44,6 +44,8 @@ export class WebsiteStack extends cdk.Stack {
       destinationBucket: hostingBucket,
       distribution,
       distributionPaths: ['/*'],
+
+
       
     });
 
