@@ -48,10 +48,17 @@ export class WebsiteStack extends cdk.Stack {
               "bash",
               "-c",
               `
+              pwd \
+              ls -al \
+              ls /asset-input \
           cd /asset-input \
           && npm install \
+          ls /asset-input \
           && npx vite build \
-          && mv dist/* /asset-output
+          ls /asset-input \
+          && mv dist/* /asset-output \
+          ls /asset-output \
+
   `,
             ],
             environment: {
