@@ -5,7 +5,7 @@
       "description": "Full release build for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=build --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=build --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -47,7 +47,7 @@
       "description": "Only compile for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -86,7 +86,7 @@
       "description": "Runs eslint against the codebase for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=eslint --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=eslint --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -96,7 +96,7 @@
       "description": "Generate dependency graph for monorepo",
       "steps": [
         {
-          "exec": "yarn nx graph",
+          "exec": "npx nx graph",
           "receiveArgs": true
         }
       ]
@@ -106,7 +106,7 @@
       "description": "Install project dependencies and update lockfile (non-frozen)",
       "steps": [
         {
-          "exec": "yarn install --check-files"
+          "exec": "npm install --legacy-peer-deps"
         }
       ]
     },
@@ -115,10 +115,10 @@
       "description": "Install project dependencies using frozen lockfile",
       "steps": [
         {
-          "exec": "yarn install --check-files --frozen-lockfile"
+          "exec": "npm ci --legacy-peer-deps"
         },
         {
-          "exec": "yarn nx run-many --target=install:ci --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=install:ci --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -128,7 +128,7 @@
       "description": "Creates the distribution package for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=package --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=package --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -138,7 +138,7 @@
       "description": "Runs after successful compilation for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=post-compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=post-compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -152,7 +152,7 @@
       "description": "Prepare the project for compilation for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=pre-compile --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=pre-compile --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -162,7 +162,7 @@
       "description": "Run task against multiple workspace projects",
       "steps": [
         {
-          "exec": "yarn nx run-many",
+          "exec": "npx nx run-many",
           "receiveArgs": true
         }
       ]
@@ -172,7 +172,7 @@
       "description": "Run tests for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=test --output-style=stream --nx-bail",
+          "exec": "npx nx run-many --target=test --output-style=stream --nx-bail",
           "receiveArgs": true
         }
       ]
@@ -188,10 +188,10 @@
           "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws/pdk,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,npm-check-updates,prettier,ts-node,typescript,@aws-cdk/aws-cognito-identitypool-alpha,aws-cdk-lib,cdk-nag"
         },
         {
-          "exec": "yarn install --check-files"
+          "exec": "npm install"
         },
         {
-          "exec": "yarn upgrade @aws/pdk @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint npm-check-updates nx prettier projen syncpack ts-node typescript @aws-cdk/aws-cognito-identitypool-alpha aws-cdk-lib cdk-nag"
+          "exec": "npm update @aws/pdk @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser constructs eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint npm-check-updates nx prettier projen syncpack ts-node typescript @aws-cdk/aws-cognito-identitypool-alpha aws-cdk-lib cdk-nag"
         },
         {
           "exec": "npx projen"
@@ -206,19 +206,19 @@
       "description": "Upgrade dependencies in the monorepo",
       "steps": [
         {
-          "exec": "yarn npm-check-updates --deep --rejectVersion 0.0.0 -u --dep prod,dev,peer,optional,bundle --target=minor"
+          "exec": "npx npm-check-updates --deep --rejectVersion 0.0.0 -u --dep prod,dev,peer,optional,bundle --target=minor"
         },
         {
-          "exec": "yarn syncpack fix-mismatches"
+          "exec": "npx syncpack fix-mismatches"
         },
         {
-          "exec": "rm yarn.lock"
+          "exec": "rm package-lock.json"
         },
         {
-          "exec": "yarn install"
+          "exec": "npm install"
         },
         {
-          "exec": "yarn projen"
+          "exec": "npx projen"
         }
       ]
     },
@@ -227,7 +227,7 @@
       "description": "Watch & compile in the background for all affected projects",
       "steps": [
         {
-          "exec": "yarn nx run-many --target=watch --output-style=stream --skip-nx-cache --nx-ignore-cycles --nx-bail",
+          "exec": "npx nx run-many --target=watch --output-style=stream --skip-nx-cache --nx-ignore-cycles --nx-bail",
           "receiveArgs": true
         }
       ]

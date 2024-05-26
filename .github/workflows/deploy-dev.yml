@@ -1,0 +1,35 @@
+name: Deploy to development
+
+on:
+  push: 
+    branches:
+     - dev
+     
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: dev
+
+jobs:
+  deploy:
+    env:
+      STAGE: dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run:  VITE_API_KEY=da2-eqqtdjea6jhhja6o5odpop6y5q VITE_API_HOST=https://zjtfzllrnvecnn3zkysgjfbhdm.appsync-api.us-east-1.amazonaws.com/graphql npx projen build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess
+          aws-region: us-east-1
+      - name: Deploy
+        working-directory: ./backend
+        run: npx cdk deploy --all --verbose --require-approval never --concurrency 5

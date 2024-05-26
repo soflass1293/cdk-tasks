@@ -118,6 +118,10 @@
       "type": "runtime"
     },
     {
+      "name": "frontend",
+      "type": "runtime"
+    },
+    {
       "name": "source-map-support",
       "type": "runtime"
     },
