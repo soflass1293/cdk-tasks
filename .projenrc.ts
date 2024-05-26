@@ -46,10 +46,6 @@ backend.addTask("appsync:codegen", {
 frontend.addTask("dev", {
   exec: "vite",
 });
-frontend.removeTask("build");
-frontend.addTask("build", {
-  exec: "vite build",
-});
 project.addTask("dev", {
   exec: "APP_STAGE=dev npx projen run-many --all --targets=dev",
 });

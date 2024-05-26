@@ -23,7 +23,5 @@ jobs:
           role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: us-east-1
-      - name: Build
-        run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen build
       - name: Deploy
         run: STAGE=${{ env.GITHUB_REF_SLUG }} npx projen deploy
