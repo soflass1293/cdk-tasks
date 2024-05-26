@@ -44,7 +44,27 @@ export class WebsiteStack extends cdk.Stack {
         Source.asset(join(__dirname, asset), {
           bundling: {
             bundlingFileAccess: BundlingFileAccess.VOLUME_COPY,
-            image: cdk.DockerImage.fromBuild('./Dockerfile'),
+            image: cdk.DockerImage.fromRegistry("node:latest"),
+            command: [
+              "bash",
+              "-c",
+              `
+              echo "YOOOOOOOOOOOOOOOOOOOOOOOOOOOO" \
+              pwd \
+              ls -al \
+              echo "LSSSSSSS - ls /asset-input" \
+              ls /asset-input \
+          cd /asset-input \
+          && npm install \
+          sudo chown -R 1001:127 "/.npm" \
+          ls -al \
+          && npx vite build \
+          ls -al \
+          && mv dist/* /asset-output \
+          ls /asset-output \
+
+  `,
+            ],
             environment: {
               VITE_API_HOST: props?.graphqlUrl!,
               VITE_API_KEY: props?.apiKey!,
