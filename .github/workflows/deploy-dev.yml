@@ -32,4 +32,4 @@ jobs:
           aws-region: us-east-1
       - name: Deploy
         working-directory: ./backend
-        run: npx cdk deploy --all --verbose --require-approval never
+        run: npx cdk deploy --all --verbose --require-approval never --concurrency 5

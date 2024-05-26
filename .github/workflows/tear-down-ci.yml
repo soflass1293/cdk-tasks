@@ -2,7 +2,7 @@ name: Deploy to ephemeral environment
 
 on:
   pull_request: 
-    types: [opened, synchronize]
+    types: [closed]
     branches:
      - dev
      
@@ -31,6 +31,6 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::042405425993:role/GitHubAdminAccess
           aws-region: us-east-1
-      - name: Deploy
+      - name: Destroy
         working-directory: ./backend
-        run: npx cdk deploy --all --verbose --require-approval never --concurrency 5
+        run: npx cdk destroy --all --verbose --require-approval never --force
