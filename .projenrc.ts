@@ -17,6 +17,7 @@ const backend = new awscdk.AwsCdkTypeScriptApp({
     "@graphql-codegen/add",
     "@graphql-codegen/cli",
     "@graphql-codegen/typescript",
+    "deploy-time-build"
   ],
   deps: [
     "@aws-amplify/graphql-api-construct",

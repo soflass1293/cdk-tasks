@@ -37,6 +37,10 @@
       "type": "build"
     },
     {
+      "name": "deploy-time-build",
+      "type": "build"
+    },
+    {
       "name": "esbuild",
       "type": "build"
     },

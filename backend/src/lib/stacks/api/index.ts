@@ -118,9 +118,11 @@ export class APIStack extends cdk.Stack {
     this.apiKey = api.apiKey;
     new cdk.CfnOutput(this, 'GraphQLAPIURL', {
       value: api.graphqlUrl,
+      exportName: "APPSYNC-URL"
     });
     new cdk.CfnOutput(this, 'GraphQLAPIKey', {
       value: api.apiKey || '',
+      exportName: "APPSYNC-API-KEY",
     });
   }
 }

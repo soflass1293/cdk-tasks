@@ -5,7 +5,7 @@ import { APIStack, DatabaseStack, EventsStack, WebsiteStack } from "../lib";
 import "dotenv/config";
 
 function createStackName(stackName: string) {
-  const stage = process.env.STAGE;
+  const stage = process.env.STAGE || "ephemeral";
   const app_name = process.env.MY_APP || "tasks";
   return `${app_name}-${stackName}-${stage}`;
 }
