@@ -8,7 +8,7 @@ import { genstr } from "../lib/utils/rand-str";
 function createStackName(stackName: string) {
   const stage = process.env.STAGE || "ephemeral";
   const app_name = process.env.MY_APP || "tasks";
-  return `${app_name}-${stackName}-${stage}-${genstr(5)}`;
+  return `${app_name}-${stackName}-${stage}-a`;
 }
 
 const app = new cdk.App();
