@@ -17,18 +17,7 @@ type WebsiteStackProps = cdk.StackProps & {
 export class WebsiteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: WebsiteStackProps) {
     super(scope, id, props);
-
-    const APPSYNC_URL = cdk.Fn.importValue("foooo");
-    const APPSYNC_API_KEY = cdk.Fn.importValue("APPSYNC-API-KEY");
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log(APPSYNC_URL);
-    console.log(APPSYNC_API_KEY);
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    const hostingBucket = new Bucket(this, "AppWebsiteHostingBucket", {
+  const hostingBucket = new Bucket(this, "AppWebsiteHostingBucket", {
       autoDeleteObjects: true,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
       removalPolicy: RemovalPolicy.DESTROY,
@@ -50,17 +39,10 @@ export class WebsiteStack extends cdk.Stack {
     });
 
     const asset = "../../../../../frontend/dist";
-    new BucketDeployment(this, "AppDeploymentBucket", {
-      sources: [Source.asset(join(__dirname, asset))],
-      destinationBucket: hostingBucket,
-      distribution,
-      distributionPaths: ["/*"],
-    });
-
     new NodejsBuild(this, "AppDeploymentBucket", {
       assets: [
         {
-          path: "frontend",
+          path: join(__dirname, asset),
           exclude: ["dist", "node_modules"],
         },
       ],
