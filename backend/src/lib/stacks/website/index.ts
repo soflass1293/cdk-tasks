@@ -37,7 +37,7 @@ export class WebsiteStack extends cdk.Stack {
       ],
     });
 
-    const asset = "../../../../../frontend/dist";
+    const asset = "../../../../../frontend";
     new NodejsBuild(this, "AppDeploymentBucket", {
       assets: [
         {
