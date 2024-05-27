@@ -48,7 +48,7 @@ export class WebsiteStack extends cdk.Stack {
       destinationBucket: hostingBucket,
       distribution,
       outputSourceDirectory: "dist",
-      buildCommands: ["npm ci", "npx vite build"],
+      buildCommands: ["npm install", "npx vite build"],
       buildEnvironment: {
         VITE_API_HOST: props?.graphqlUrl!,
         VITE_API_KEY: props?.apiKey!,
