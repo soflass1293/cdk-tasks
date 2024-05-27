@@ -3,7 +3,6 @@ import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 import { APIStack, DatabaseStack, EventsStack, WebsiteStack } from "../lib";
 import "dotenv/config";
-import { genstr } from "../lib/utils/rand-str";
 
 function createStackName(stackName: string) {
   const stage = process.env.STAGE || "ephemeral";
