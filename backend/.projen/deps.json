@@ -37,10 +37,6 @@
       "type": "build"
     },
     {
-      "name": "deploy-time-build",
-      "type": "build"
-    },
-    {
       "name": "esbuild",
       "type": "build"
     },
@@ -118,11 +114,11 @@
       "type": "runtime"
     },
     {
-      "name": "dotenv",
+      "name": "deploy-time-build",
       "type": "runtime"
     },
     {
-      "name": "frontend",
+      "name": "dotenv",
       "type": "runtime"
     },
     {
