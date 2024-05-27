@@ -7,7 +7,7 @@ import "dotenv/config";
 function createStackName(stackName: string) {
   const stage = process.env.STAGE || "ephemeral";
   const app_name = process.env.MY_APP || "tasks";
-  return `${app_name}-${stackName}-${stage}-b`;
+  return `${app_name}-${stackName}-${stage}-c`;
 }
 
 const app = new cdk.App();
