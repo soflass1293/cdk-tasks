@@ -59,7 +59,7 @@ jobs:
             // 3. Create new comment
             const fs = require('fs')
             const path = require('path')
-            const jsonString = fs.readFileSync(path.resolve('packages/infra/cdk.out/resources.json'))
+            const jsonString = fs.readFileSync(path.resolve('backend/cdk.out/resources.json'))
             const output = `Deployed to ${{env.APP_NAME}}
             <details><summary>View stack outputs</summary>
 
