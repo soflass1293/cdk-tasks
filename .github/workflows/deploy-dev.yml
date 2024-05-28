@@ -18,13 +18,16 @@ jobs:
     env:
       STAGE: dev
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm install
-      - name: Build
-        run:  VITE_API_KEY=da2-eqqtdjea6jhhja6o5odpop6y5q VITE_API_HOST=https://zjtfzllrnvecnn3zkysgjfbhdm.appsync-api.us-east-1.amazonaws.com/graphql npx projen build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -32,45 +35,52 @@ jobs:
           aws-region: us-east-1
       - name: Deploy
         working-directory: ./backend
-        run: npx cdk deploy --all --verbose --require-approval never --concurrency 5
-      - name: Comment PR
+        run: npx cdk deploy --all --verbose --require-approval never --concurrency 5 --outputs-file cdk.out/resources.json
+      - name: Comment on Push
         uses: actions/github-script@v7
-        id: plan-comment
+        id: push-comment
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // 1. Retrieve existing bot comments for the PR
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const botComments = comments.filter(comment => {
-              return comment.user.type === 'Bot' && comment.body.includes('Deployed to')
-            });
-            // 2. Delete previous comments so PR timeline makes sense
-            botComments.forEach(botComment => {
-               github.rest.issues.deleteComment({
+            // Check if the event is a push to the "dev" branch
+            if (context.ref === 'refs/heads/dev') {
+              // 1. Retrieve existing bot comments for the latest commit
+              const { data: comments } = await github.rest.repos.listCommentsForCommit({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                comment_id: botComment.id,
+                commit_sha: context.sha,
               });
-            });
-            // 3. Create new comment
-            const fs = require('fs')
-            const path = require('path')
-            const jsonString = fs.readFileSync(path.resolve('backend/cdk.out/resources.json'))
-            const output = `Deployed to ${{env.APP_NAME}}
-            <details><summary>View stack outputs</summary>
 
-            \`\`\`json
-            ${jsonString}
-            \`\`\`
+              const botComments = comments.filter(comment => {
+                return comment.user.type === 'Bot' && comment.body.includes('Deployed to');
+              });
 
-            </details>`;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            });
+              // 2. Delete previous comments so commit timeline makes sense
+              for (const botComment of botComments) {
+                await github.rest.repos.deleteCommitComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                });
+              }
+
+              // 3. Create new comment
+              const fs = require('fs');
+              const path = require('path');
+              const jsonString = fs.readFileSync(path.resolve('backend/cdk.out/resources.json'), 'utf8');
+              const output = `Deployed to ${{ env.APP_NAME }}
+              <details><summary>View stack outputs</summary>
+
+              \`\`\`json
+              ${jsonString}
+              \`\`\`
+
+              </details>`;
+
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: output,
+              });
+            }
