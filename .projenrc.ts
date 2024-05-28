@@ -16,7 +16,7 @@ const backend = new awscdk.AwsCdkTypeScriptApp({
   devDeps: [
     "@graphql-codegen/add",
     "@graphql-codegen/cli",
-    "@graphql-codegen/typescript",
+    "@graphql-codegen/typescript"
   ],
   deps: [
     "@aws-amplify/graphql-api-construct",
@@ -28,7 +28,7 @@ const backend = new awscdk.AwsCdkTypeScriptApp({
     "dotenv",
     "source-map-support",
     "uuid",
-    "frontend",
+    "deploy-time-build"
   ],
   packageManager: javascript.NodePackageManager.NPM,
 });

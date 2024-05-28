@@ -1,4 +1,4 @@
-name: Deploy to ephemeral environment
+name: Teardown ephemeral environment
 
 on:
   pull_request: 
