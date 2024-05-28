@@ -25,10 +25,11 @@ export class DynamoDBAdapter {
   async putItem<T extends Record<string, any> | undefined>(
     item: T,
   ): Promise<void> {
-    void this._db.put({
+    await this._db.put({
       TableName: this._tableName,
       Item: item,
     });
+    return void 0;
   }
 
   async scan<T>(): Promise<Array<T>> {

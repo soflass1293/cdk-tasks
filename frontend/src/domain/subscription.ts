@@ -1,13 +1,20 @@
-const APPSYNC_HOST =
-  '4qfljing7rct7aeewwjhngoziu.appsync-api.us-east-1.amazonaws.com';
-const APPSYNC_REALTIME_HOST =
-  '4qfljing7rct7aeewwjhngoziu.appsync-realtime-api.us-east-1.amazonaws.com';
-const APPSYNC_API_KEY = 'da2-5xxgzzrewfdtvexpe5jvjctg6a';
+// @ts-ignore
+const HTTP_LINK = import.meta.env.VITE_API_HOST;
+// @ts-ignore
+const APPSYNC_API_KEY = import.meta.env.VITE_API_KEY;
+
+const APPSYNC_HOST = HTTP_LINK.replace("https://", "")
+  .replace(".com/", ".com")
+  .replace("graphql", "");
+const APPSYNC_REALTIME_HOST = APPSYNC_HOST.replace(
+  "appsync-api",
+  "appsync-realtime-api",
+);
 
 const encodeCredentials = (host: string, key: string) => {
   const creds = {
     host,
-    'x-api-key': key,
+    "x-api-key": key,
   };
   const b64Creds = window.btoa(JSON.stringify(creds));
 
@@ -26,7 +33,7 @@ const getWebsocketUrl = () => {
 function withCreated(websocket: WebSocket) {
   const subscribe = {
     id: window.crypto.randomUUID(),
-    type: 'start',
+    type: "start",
     payload: {
       data: JSON.stringify({
         query: `subscription onTodoCreated {
@@ -40,8 +47,8 @@ function withCreated(websocket: WebSocket) {
       }),
       extensions: {
         authorization: {
-          'x-api-key': APPSYNC_API_KEY,
-          'host': APPSYNC_HOST,
+          "x-api-key": APPSYNC_API_KEY,
+          host: APPSYNC_HOST,
         },
       },
     },
@@ -52,7 +59,7 @@ function withCreated(websocket: WebSocket) {
 function withUpdated(websocket: WebSocket) {
   const subscribe = {
     id: window.crypto.randomUUID(),
-    type: 'start',
+    type: "start",
     payload: {
       data: JSON.stringify({
         query: `subscription onTodoUpdated {
@@ -66,8 +73,29 @@ function withUpdated(websocket: WebSocket) {
       }),
       extensions: {
         authorization: {
-          'x-api-key': APPSYNC_API_KEY,
-          'host': APPSYNC_HOST,
+          "x-api-key": APPSYNC_API_KEY,
+          host: APPSYNC_HOST,
+        },
+      },
+    },
+  };
+  websocket.send(JSON.stringify(subscribe));
+}
+
+function withDeleted(websocket: WebSocket) {
+  const subscribe = {
+    id: window.crypto.randomUUID(),
+    type: "start",
+    payload: {
+      data: JSON.stringify({
+        query: `subscription onTodoDeleted {
+          onTodoDeleted {}
+        }`,
+      }),
+      extensions: {
+        authorization: {
+          "x-api-key": APPSYNC_API_KEY,
+          host: APPSYNC_HOST,
         },
       },
     },
@@ -77,12 +105,12 @@ function withUpdated(websocket: WebSocket) {
 
 const url = getWebsocketUrl();
 
-const websocket = new WebSocket(url, ['graphql-ws']);
+const websocket = new WebSocket(url, ["graphql-ws"]);
 
-websocket.addEventListener('open', () => {
+websocket.addEventListener("open", () => {
   websocket.send(
     JSON.stringify({
-      type: 'connection_init',
+      type: "connection_init",
     }),
   );
 });
@@ -90,21 +118,22 @@ websocket.addEventListener('open', () => {
 const subscribe = (
   callback: (error?: MessageEvent<any>, data?: MessageEvent<any>) => void,
 ) => {
-  websocket.addEventListener('message', (event) => {
+  websocket.addEventListener("message", (event) => {
     const message = JSON.parse(event.data);
     switch (message.type) {
-      case 'connection_ack':
+      case "connection_ack":
         withCreated(websocket);
         withUpdated(websocket);
+        withDeleted(websocket);
         break;
-      case 'start_ack':
-        console.info('start_ack');
+      case "start_ack":
+        console.info("start_ack");
         break;
-      case 'error':
+      case "error":
         console.info(message);
         callback(message);
         break;
-      case 'data':
+      case "data":
         console.info(message.payload.data);
         callback(undefined, message);
         break;

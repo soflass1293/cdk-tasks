@@ -114,6 +114,10 @@
       "type": "runtime"
     },
     {
+      "name": "deploy-time-build",
+      "type": "runtime"
+    },
+    {
       "name": "dotenv",
       "type": "runtime"
     },
