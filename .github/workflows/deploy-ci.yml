@@ -40,7 +40,7 @@ jobs:
         run: ls -al
       - name: pwd222222
         working-directory: ./backend
-        run: ls -al
+        run: pwd
       - name: Lii22222
         working-directory: ./backend
         run: ls -al
