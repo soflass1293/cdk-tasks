@@ -66,7 +66,5 @@ export class WebsiteStack extends cdk.Stack {
       description: "The name of the S3 bucket",
       exportName: `${props?.stackName}-${genstr(5)}-AppBucketName`,
     });
-
-    console.log("soss" + props?.apiKey + props?.graphqlUrl);
   }
 }

@@ -1,12 +1,10 @@
 // @ts-ignore
 const HTTP_LINK = import.meta.env.VITE_API_HOST;
-const APPSYNC_HOST = HTTP_LINK;
-const APPSYNC_REALTIME_HOST = HTTP_LINK.replace("https", "wss").replace(
-  "appsync-api",
-  "appsync-realtime-api",
-);
 // @ts-ignore
 const APPSYNC_API_KEY = import.meta.env.VITE_API_KEY;
+
+const APPSYNC_HOST = HTTP_LINK.replace("https://", "").replace(".com/", ".com").replace("graphql", "");
+const APPSYNC_REALTIME_HOST =APPSYNC_HOST.replace("appsync-api", "appsync-realtime-api")
 
 const encodeCredentials = (host: string, key: string) => {
   const creds = {
@@ -22,7 +20,7 @@ const getWebsocketUrl = () => {
   const header = encodeCredentials(APPSYNC_HOST, APPSYNC_API_KEY);
   const payload = window.btoa(JSON.stringify({}));
 
-  const url = `${APPSYNC_REALTIME_HOST}?header=${header}&payload=${payload}`;
+  const url = `wss://${APPSYNC_REALTIME_HOST}/graphql?header=${header}&payload=${payload}`;
 
   return url;
 };
