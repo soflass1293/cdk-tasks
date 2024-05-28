@@ -1,11 +1,11 @@
 import { join } from "path";
 import * as cdk from "aws-cdk-lib";
-import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { BundlingFileAccess, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
+import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
-import { NodejsBuild } from "deploy-time-build";
 import { genstr } from "../../utils/rand-str";
 
 type WebsiteStackProps = cdk.StackProps & {
@@ -16,6 +16,7 @@ type WebsiteStackProps = cdk.StackProps & {
 export class WebsiteStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: WebsiteStackProps) {
     super(scope, id, props);
+
     const hostingBucket = new Bucket(this, "AppWebsiteHostingBucket", {
       autoDeleteObjects: true,
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
@@ -36,23 +37,44 @@ export class WebsiteStack extends cdk.Stack {
         },
       ],
     });
-
+    
     const asset = "../../../../../frontend";
-    new NodejsBuild(this, "AppDeploymentBucket", {
-      assets: [
-        {
-          path: join(__dirname, asset),
-          exclude: ["dist", "node_modules"],
-        },
+    new BucketDeployment(this, "AppWebsiteDeploymentBucket", {
+      sources: [
+        Source.asset(join(__dirname, asset), {
+          bundling: {
+            bundlingFileAccess: BundlingFileAccess.VOLUME_COPY,
+            image: cdk.DockerImage.fromRegistry("node:latest"),
+            command: [
+              "bash",
+              "-c",
+              `
+              echo "YOOOOOOOOOOOOOOOOOOOOOOOOOOOO" \
+              pwd \
+              ls -al \
+              echo "LSSSSSSS - ls /asset-input" \
+              ls /asset-input \
+          cd /asset-input \
+          && npm install \
+          sudo chown -R 1001:127 "/.npm" \
+          ls -al \
+          && npx vite build \
+          ls -al \
+          && mv dist/* /asset-output \
+          ls /asset-output \
+
+  `,
+            ],
+            environment: {
+              VITE_API_HOST: props?.graphqlUrl!,
+              VITE_API_KEY: props?.apiKey!,
+            },
+          },
+        }),
       ],
       destinationBucket: hostingBucket,
       distribution,
-      outputSourceDirectory: "dist",
-      buildCommands: ["npm install", "npx vite build"],
-      buildEnvironment: {
-        VITE_API_HOST: props?.graphqlUrl!,
-        VITE_API_KEY: props?.apiKey!,
-      },
+      distributionPaths: ["/*"],
     });
 
     new CfnOutput(this, "AppCloudFrontURL", {
@@ -66,7 +88,5 @@ export class WebsiteStack extends cdk.Stack {
       description: "The name of the S3 bucket",
       exportName: `${props?.stackName}-${genstr(5)}-AppBucketName`,
     });
-
-    console.log("soss" + props?.apiKey + props?.graphqlUrl);
   }
 }
