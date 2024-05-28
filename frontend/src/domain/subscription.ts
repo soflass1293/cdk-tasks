@@ -3,8 +3,13 @@ const HTTP_LINK = import.meta.env.VITE_API_HOST;
 // @ts-ignore
 const APPSYNC_API_KEY = import.meta.env.VITE_API_KEY;
 
-const APPSYNC_HOST = HTTP_LINK.replace("https://", "").replace(".com/", ".com").replace("graphql", "");
-const APPSYNC_REALTIME_HOST =APPSYNC_HOST.replace("appsync-api", "appsync-realtime-api")
+const APPSYNC_HOST = HTTP_LINK.replace("https://", "")
+  .replace(".com/", ".com")
+  .replace("graphql", "");
+const APPSYNC_REALTIME_HOST = APPSYNC_HOST.replace(
+  "appsync-api",
+  "appsync-realtime-api",
+);
 
 const encodeCredentials = (host: string, key: string) => {
   const creds = {
@@ -77,6 +82,27 @@ function withUpdated(websocket: WebSocket) {
   websocket.send(JSON.stringify(subscribe));
 }
 
+function withDeleted(websocket: WebSocket) {
+  const subscribe = {
+    id: window.crypto.randomUUID(),
+    type: "start",
+    payload: {
+      data: JSON.stringify({
+        query: `subscription onTodoDeleted {
+          onTodoDeleted {}
+        }`,
+      }),
+      extensions: {
+        authorization: {
+          "x-api-key": APPSYNC_API_KEY,
+          host: APPSYNC_HOST,
+        },
+      },
+    },
+  };
+  websocket.send(JSON.stringify(subscribe));
+}
+
 const url = getWebsocketUrl();
 
 const websocket = new WebSocket(url, ["graphql-ws"]);
@@ -98,6 +124,7 @@ const subscribe = (
       case "connection_ack":
         withCreated(websocket);
         withUpdated(websocket);
+        withDeleted(websocket);
         break;
       case "start_ack":
         console.info("start_ack");

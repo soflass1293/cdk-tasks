@@ -1,18 +1,22 @@
-import { Todo } from './domain/graphql/generated';
-import { subscribe } from './domain/subscription';
-import { getTodos, toggleTodo, deleteTodo, createTodo } from './domain/todos';
-document.addEventListener('alpine:init', () => {
+import { Todo } from "./domain/graphql/generated";
+import { subscribe } from "./domain/subscription";
+import { getTodos, toggleTodo, deleteTodo, createTodo } from "./domain/todos";
+document.addEventListener("alpine:init", () => {
   // @ts-ignore
-  Alpine.data('todos_form', () => ({
-    name: '',
-    handleSubmit() {
-      void createTodo({ name: this.name });
-      this.name = '';
+  Alpine.data("todos_form", () => ({
+    name: "",
+    loading: false,
+    async handleSubmit() {
+      this.loading = true;
+      await createTodo({ name: this.name });
+      this.loading = false;
+      this.name = "";
     },
   }));
-  type Filter = 'all' | 'active' | 'completed';
+  type Filter = "all" | "active" | "completed";
   type TodosList = {
     todos: (Todo | null)[];
+    loading: boolean;
     filteredTodos: (Todo | null)[];
     filter: Filter;
     retrieve: () => void;
@@ -22,11 +26,12 @@ document.addEventListener('alpine:init', () => {
     handleFilter: (filter: Filter) => void;
   };
   // @ts-ignore
-  Alpine.data('todos_list', (): TodosList => {
+  Alpine.data("todos_list", (): TodosList => {
     return {
       todos: [],
+      loading: false,
       filteredTodos: [],
-      filter: 'all',
+      filter: "all",
       async handleInit() {
         this.retrieve();
         subscribe((error, data) => {
@@ -40,12 +45,15 @@ document.addEventListener('alpine:init', () => {
       async retrieve() {
         const fn = async () => {
           try {
+            this.loading = true;
             const { data } = await getTodos();
+            this.loading = false;
             if (data.getTodos && Array.isArray(data.getTodos)) {
               this.todos = data.getTodos;
               this.filteredTodos = data.getTodos;
             }
           } catch (error) {
+            this.loading = false;
             console.info(error);
           }
         };
@@ -54,6 +62,7 @@ document.addEventListener('alpine:init', () => {
       handleToggleCompleted(id: string) {
         const fn = async () => {
           try {
+            this.loading = true;
             await toggleTodo({ id });
           } catch (error) {
             console.info(error);
@@ -62,10 +71,12 @@ document.addEventListener('alpine:init', () => {
         void fn();
       },
       handleDelete(id: string) {
-        if (confirm('Are you sure you want to delete this item?')) {
+        if (confirm("Are you sure you want to delete this item?")) {
           const fn = async () => {
             try {
+              this.loading = true;
               await deleteTodo({ id });
+              this.retrieve();
             } catch (error) {
               console.info(error);
             }
@@ -74,16 +85,16 @@ document.addEventListener('alpine:init', () => {
         }
       },
       handleFilter(filter: Filter) {
-        if (filter === 'all') {
-          this.filter = 'all';
+        if (filter === "all") {
+          this.filter = "all";
           this.filteredTodos = this.todos;
-        } else if (filter === 'active') {
-          this.filter = 'active';
+        } else if (filter === "active") {
+          this.filter = "active";
           this.filteredTodos = this.todos.filter(
             (todo) => todo && todo.completed === false,
           );
-        } else if (filter === 'completed') {
-          this.filter = 'completed';
+        } else if (filter === "completed") {
+          this.filter = "completed";
           this.filteredTodos = this.todos.filter(
             (todo) => todo && todo.completed === true,
           );
