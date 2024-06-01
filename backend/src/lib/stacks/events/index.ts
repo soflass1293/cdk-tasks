@@ -6,7 +6,6 @@ import * as targets from 'aws-cdk-lib/aws-events-targets';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
-import { TodoDeletedEvent } from './records';
 
 type EventStackProps = cdk.StackProps & {
   archivedTable: dynamodb.Table;
@@ -30,15 +29,15 @@ export class EventsStack extends cdk.Stack {
     );
     props.archivedTable.grantWriteData(fnArchiveTodoWorker);
 
-    const deletedTodo = 'TODO_DELETED' as TodoDeletedEvent['eventName'];
-    const source = 'com.soflass.cdk.todos';
-    const rule = new events.Rule(this, 'AppEventBridgeRule', {
+    
+    new events.Rule(this, 'AppEventBridgeRule', {
       eventPattern: {
-        source: [source],
-        detailType: [deletedTodo],
+        source: ['com.soflass.cdk.todos'],
+        detailType: ['TODO_DELETED'],
       },
+      targets:[new targets.LambdaFunction(fnArchiveTodoWorker)]
     });
+    
 
-    rule.addTarget(new targets.LambdaFunction(fnArchiveTodoWorker));
   }
 }
